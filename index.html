@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Olympus Mons  The Pursuit of Higher Ground</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@200;300;400;600;700&family=Barlow:ital,wght@0,200;0,300;1,200&display=swap" rel="stylesheet">
+
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ink:        #06080C;
+  --dark:       #0A0E14;
+  --gold:       #C49A2A;
+  --gold-lt:    #E2B84A;
+  --gold-dim:   rgba(226,184,74,0.72);
+  --gold-body:  rgba(226,184,74,0.82);
+  --gold-line:  rgba(196,154,42,0.20);
+  --gold-faint: rgba(196,154,42,0.10);
+}
+
+html { scroll-behavior: smooth; }
+body {
+  background: var(--ink);
+  color: var(--gold-lt);
+  font-family: 'Barlow', sans-serif;
+  font-weight: 200;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 28px 56px;
+  background: linear-gradient(to bottom, rgba(6,8,12,0.7) 0%, transparent 100%);
+}
+.nav-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.25rem; letter-spacing: 0.35em;
+  color: var(--gold-lt); text-decoration: none;
+}
+.nav-links { display: flex; gap: 40px; }
+.nav-link {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.25rem; letter-spacing: 0.35em; text-transform: uppercase;
+  color: var(--gold-dim); text-decoration: none; transition: color 0.2s;
+}
+.nav-link:hover { color: var(--gold-lt); }
+
+/* ── HERO ── */
+.hero {
+  position: relative; height: 100vh; min-height: 700px;
+  display: flex; flex-direction: column; justify-content: flex-end; overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background-color: #0A1525;
+  background-image: url('https://images.unsplash.com/photo-1574007768454-75b5d20f6454?w=2000&q=90&fm=jpg&fit=crop&crop=center');
+  background-size: cover; background-position: center 25%;
+  filter: brightness(0.30) saturate(0.65);
+}
+.hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg,
+    rgba(6,8,12,0.1) 0%,
+    rgba(6,8,12,0.0) 30%,
+    rgba(6,8,12,0.6) 70%,
+    rgba(6,8,12,1.0) 100%);
+}
+.hero-content {
+  position: relative; z-index: 10; padding: 0 56px 88px;
+}
+.hero-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.25rem; letter-spacing: 0.5em; text-transform: uppercase;
+  color: var(--gold-dim); margin-bottom: 20px;
+  display: flex; align-items: center; gap: 16px;
+}
+.hero-label::before {
+  content:''; display:block; width:32px; height:1px; background: var(--gold-line);
+}
+h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(5.5rem, 16vw, 13rem);
+  line-height: 0.85; letter-spacing: 0.02em; color: var(--gold-lt);
+  margin-bottom: 24px;
+}
+.hero-sub {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(1.15rem, 2vw, 1.3rem); font-weight: 200;
+  letter-spacing: 0.4em; text-transform: uppercase; color: var(--gold-dim);
+  margin-bottom: 6px;
+}
+.hero-descriptor {
+  font-size: 1.15rem; letter-spacing: 0.18em;
+  color: rgba(226,184,74,0.75); font-style: italic;
+}
+.scroll-cue {
+  position: absolute; bottom: 36px; right: 56px; z-index: 10;
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+}
+.scroll-cue span {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.25rem; letter-spacing: 0.4em; text-transform: uppercase;
+  color: rgba(226,184,74,0.65); writing-mode: vertical-lr;
+}
+.scroll-line {
+  width: 1px; height: 56px;
+  background: linear-gradient(to bottom, rgba(196,154,42,0.5), transparent);
+  animation: pulse 2.4s ease-in-out infinite;
+}
+@keyframes pulse { 0%,100%{opacity:.35;} 50%{opacity:1;} }
+
+/* ── PEAKS ── */
+.peaks-section {
+  display: grid; grid-template-columns: 1fr 1fr 1fr;
+  gap: 1px; background: var(--gold-line);
+}
+.peak-card {
+  position: relative; height: 72vh; min-height: 480px; overflow: hidden;
+}
+.peak-img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; object-position: center;
+  filter: brightness(0.32) saturate(0.6);
+  transition: filter 0.7s ease, transform 0.7s ease;
+  background: #0A1525;
+}
+.peak-card:hover .peak-img {
+  filter: brightness(0.48) saturate(0.75);
+  transform: scale(1.04);
+}
+.peak-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(6,8,12,0.92) 0%, rgba(6,8,12,0.0) 55%);
+}
+.peak-content {
+  position: absolute; bottom: 0; left: 0; right: 0; padding: 40px 36px;
+}
+.peak-num {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.25rem; letter-spacing: 0.45em; text-transform: uppercase;
+  color: rgba(226,184,74,0.72); margin-bottom: 10px;
+}
+.peak-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.6rem; letter-spacing: 0.06em;
+  color: var(--gold-lt); margin-bottom: 6px;
+}
+.peak-detail {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.15rem; letter-spacing: 0.28em; text-transform: uppercase;
+  color: rgba(226,184,74,0.75);
+}
+
+/* ── PRODUCT ── */
+.product-section {
+  padding: 140px 56px; background: var(--ink); text-align: center;
+}
+.section-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.25rem; letter-spacing: 0.5em; text-transform: uppercase;
+  color: rgba(226,184,74,0.72); margin-bottom: 72px;
+  display: flex; align-items: center; justify-content: center; gap: 24px;
+}
+.section-label::before, .section-label::after {
+  content:''; display:block; width:48px; height:1px; background: var(--gold-line);
+}
+.color-groups {
+  display: flex; gap: 48px; justify-content: center;
+  flex-wrap: wrap; margin-bottom: 12px;
+}
+.color-group { display: flex; flex-direction: column; align-items: center; }
+.color-group-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.1rem; letter-spacing: 0.35em; text-transform: uppercase;
+  color: var(--gold-lt); margin-bottom: 20px;
+}
+.product-frame {
+  display: flex; gap: 2px; justify-content: center;
+  flex-wrap: wrap; background: var(--gold-line);
+  max-width: 520px; margin: 0 auto;
+}
+.product-face {
+  display: flex; flex-direction: column; align-items: center; background: var(--ink);
+}
+.product-img-slot { width: 240px; height: 285px; overflow: hidden; background: #14171c; }
+.product-img-slot img {
+  width: 100%; height: 100%; object-fit: cover; object-position: center top;
+}
+.face-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.25rem; letter-spacing: 0.4em; text-transform: uppercase;
+  color: rgba(226,184,74,0.65); padding: 16px 0 20px;
+}
+.product-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(1.3rem, 2.5vw, 1.7rem); font-weight: 600;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--gold-lt); margin-top: 52px;
+}
+.product-detail {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.25rem; letter-spacing: 0.3em; text-transform: uppercase;
+  color: rgba(226,184,74,0.72); margin-top: 8px;
+}
+
+/* ── CONCEPT ── */
+.concept-section {
+  padding: 140px 56px; max-width: 760px; margin: 0 auto;
+  text-align: left; border-top: 1px solid var(--gold-line);
+}
+.concept-eyebrow {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.25rem; letter-spacing: 0.5em; text-transform: uppercase;
+  color: rgba(226,184,74,0.72); margin-bottom: 36px;
+}
+.concept-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.4rem, 5vw, 3.8rem); letter-spacing: 0.04em;
+  color: var(--gold-lt); margin-bottom: 36px; line-height: 1.0;
+}
+.concept-body {
+  font-size: 1.25rem; font-weight: 200; line-height: 1.9;
+  color: rgba(226,184,74,0.82); max-width: 560px;
+}
+
+/* ── DROP ── */
+.drop-section { padding: 0 56px 140px; text-align: center; }
+.drop-inner {
+  display: inline-block; border: 1px solid var(--gold-line);
+  padding: 64px 72px; max-width: 580px; position: relative;
+}
+.drop-inner::before, .drop-inner::after {
+  content:''; position:absolute; width:16px; height:16px;
+  border-color: var(--gold); border-style: solid; opacity: 0.5;
+}
+.drop-inner::before { top:-1px; left:-1px; border-width: 1px 0 0 1px; }
+.drop-inner::after  { bottom:-1px; right:-1px; border-width: 0 1px 1px 0; }
+.drop-badge {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.25rem; letter-spacing: 0.45em; text-transform: uppercase;
+  color: var(--gold-lt); border: 1px solid var(--gold-line);
+  padding: 5px 16px; display: inline-block; margin-bottom: 32px;
+  background: var(--gold-faint);
+}
+.drop-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(1.8rem, 3.5vw, 2.5rem); letter-spacing: 0.08em;
+  color: var(--gold-lt); margin-bottom: 16px;
+}
+.drop-note {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.25rem; letter-spacing: 0.25em; text-transform: uppercase;
+  color: rgba(226,184,74,0.68); font-style: italic;
+}
+
+/* ── EMAIL ── */
+.email-section {
+  border-top: 1px solid var(--gold-line);
+  padding: 100px 56px 140px; text-align: center;
+}
+.email-heading {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(1.15rem, 1.8vw, 1.3rem); font-weight: 200;
+  letter-spacing: 0.4em; text-transform: uppercase;
+  color: rgba(226,184,74,0.80); margin-bottom: 44px;
+}
+.email-form {
+  display: flex; justify-content: center;
+  max-width: 480px; margin: 0 auto;
+  flex-wrap: wrap; gap: 1px; background: var(--gold-line);
+}
+.email-input {
+  flex: 1; min-width: 220px; background: var(--dark); border: none;
+  color: var(--gold-lt); font-family: 'Barlow', sans-serif;
+  font-size: 1.15rem; letter-spacing: 0.08em; padding: 16px 22px; outline: none;
+}
+.email-input::placeholder { color: rgba(226,184,74,0.35); }
+.email-btn {
+  background: var(--gold); border: none; color: var(--ink);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.25rem; font-weight: 700; letter-spacing: 0.35em;
+  text-transform: uppercase; padding: 16px 26px; cursor: pointer;
+  transition: background 0.2s; white-space: nowrap;
+}
+.email-btn:hover { background: var(--gold-lt); }
+.email-fine {
+  font-size: 1.25rem; color: rgba(226,184,74,0.60);
+  margin-top: 16px; letter-spacing: 0.06em;
+}
+
+/* ── FOOTER ── */
+footer {
+  border-top: 1px solid var(--gold-line); padding: 36px 56px;
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 16px;
+}
+.footer-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.2rem; letter-spacing: 0.3em; color: rgba(226,184,74,0.62);
+}
+.footer-note {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.25rem; letter-spacing: 0.3em; text-transform: uppercase;
+  color: rgba(226,184,74,0.55);
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .peaks-section { grid-template-columns: 1fr; }
+  .peak-card { height: 60vw; min-height: 320px; }
+}
+@media (max-width: 640px) {
+  nav { padding: 20px 24px; }
+  .nav-links { display: none; }
+  .hero-content { padding: 0 24px 72px; }
+  .product-section { padding: 90px 24px; }
+  .product-img-slot { width: 42vw; height: 50vw; max-width: 300px; max-height: 355px; }
+  .color-groups { gap: 24px; }
+  .concept-section { padding: 90px 24px; }
+  .drop-section { padding: 0 24px 90px; }
+  .drop-inner { padding: 44px 32px; }
+  .email-section { padding: 80px 24px 100px; }
+  footer { padding: 28px 24px; }
+  .scroll-cue { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .scroll-line { animation: none; }
+  .peak-card:hover .peak-img { transform: none; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">Olympus Mons</a>
+  <div class="nav-links">
+    <a href="#peaks" class="nav-link">Expeditions</a>
+    <a href="#product" class="nav-link">Founding Tee</a>
+    <a href="#join" class="nav-link">Join</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-label">Expedition Outfitter</p>
+    <h1>Olympus<br>Mons</h1>
+    <p class="hero-sub">Built for the climb.</p>
+    <p class="hero-descriptor">Follow the ascent. Wear the proof.</p>
+  </div>
+  <div class="scroll-cue">
+    <span>Descend</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- THREE PEAKS -->
+<section class="peaks-section" id="peaks">
+  <div class="peak-card">
+    <img class="peak-img" src="https://images.unsplash.com/photo-1574007768454-75b5d20f6454?w=1400&q=85&fm=jpg&fit=crop&crop=center" alt="Mount Everest" loading="lazy">
+    <div class="peak-overlay"></div>
+    <div class="peak-content">
+      <p class="peak-num">8,849 m &nbsp;&nbsp;&nbsp; Himalayas</p>
+      <p class="peak-name">Everest</p>
+      <p class="peak-detail">Nepal  Tibet &nbsp;&nbsp;&nbsp; Highest on Earth</p>
+    </div>
+  </div>
+  <div class="peak-card">
+    <img class="peak-img" src="https://images.unsplash.com/photo-1627896157734-4d7d4388f28b?w=1400&q=85&fm=jpg&fit=crop&crop=center" alt="K2" loading="lazy">
+    <div class="peak-overlay"></div>
+    <div class="peak-content">
+      <p class="peak-num">8,611 m &nbsp;&nbsp;&nbsp; Karakoram</p>
+      <p class="peak-name">K2</p>
+      <p class="peak-detail">Pakistan  China &nbsp;&nbsp;&nbsp; The Savage Mountain</p>
+    </div>
+  </div>
+  <div class="peak-card">
+    <img class="peak-img" src="https://images.unsplash.com/photo-1507939040444-21d4dca3781e?w=1400&q=85&fm=jpg&fit=crop&crop=center" alt="Denali" loading="lazy">
+    <div class="peak-overlay"></div>
+    <div class="peak-content">
+      <p class="peak-num">6,190 m &nbsp;&nbsp;&nbsp; Alaska Range</p>
+      <p class="peak-name">Denali</p>
+      <p class="peak-detail">Alaska, USA &nbsp;&nbsp;&nbsp; Highest in North America</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCT -->
+<section class="product-section" id="product">
+  <p class="section-label">Founding Piece</p>
+
+  <div class="color-groups">
+    <div class="color-group">
+      <p class="color-group-label">Black</p>
+      <div class="product-frame">
+        <div class="product-face">
+          <div class="product-img-slot">
+            <img src="images/summit-tee-black-front.jpg" alt="Olympus Mons Summit Tee, Black, Front" loading="lazy">
+          </div>
+          <span class="face-label">Front</span>
+        </div>
+        <div class="product-face">
+          <div class="product-img-slot">
+            <img src="images/summit-tee-black-back.jpg" alt="Olympus Mons Summit Tee, Black, Back" loading="lazy">
+          </div>
+          <span class="face-label">Back</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="color-group">
+      <p class="color-group-label">Brick Red</p>
+      <div class="product-frame">
+        <div class="product-face">
+          <div class="product-img-slot">
+            <img src="images/summit-tee-brickred-front.jpg" alt="Olympus Mons Summit Tee, Brick Red, Front" loading="lazy">
+          </div>
+          <span class="face-label">Front</span>
+        </div>
+        <div class="product-face">
+          <div class="product-img-slot">
+            <img src="images/summit-tee-brickred-back.jpg" alt="Olympus Mons Summit Tee, Brick Red, Back" loading="lazy">
+          </div>
+          <span class="face-label">Back</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p class="product-name">Olympus Mons Summit Tee</p>
+  <p class="product-detail">Black &nbsp;&nbsp;&nbsp; Brick Red &nbsp;&nbsp;&nbsp; Gold Foil Print &nbsp;&nbsp;&nbsp; $38.99</p>
+</section>
+
+<!-- CONCEPT -->
+<section class="concept-section" id="concept">
+  <p class="concept-eyebrow">About</p>
+  <h2 class="concept-title">This Isn't<br>Just Merch</h2>
+  <p class="concept-body">Olympus Mons is the gear behind everything you see on the channel &mdash; summit pushes, gym sessions, hikes that don't make the highlight reel. Wearing it means you're part of the ascent, not just watching it.</p>
+</section>
+
+<!-- DROP -->
+<section class="drop-section" id="drop">
+  <div class="drop-inner">
+    <div class="drop-badge">Founding Drop &mdash; Limited to the First 50</div>
+    <h3 class="drop-title">Olympus Mons Summit Tee</h3>
+    <p class="drop-note">Every brand has an origin point. This is ours. Founding members get first access to future drops and a numbered piece from Collection 001.</p>
+  </div>
+</section>
+
+<!-- EMAIL -->
+<section class="email-section" id="join">
+  <p class="email-heading">Follow the Journey</p>
+  <form class="email-form" action="https://formspree.io/f/mlgybayp" method="POST" id="expedition-form">
+    <input class="email-input" type="email" name="email" placeholder="your@email.com" aria-label="Email address" required>
+    <button class="email-btn" type="submit">Join the Expedition List</button>
+  </form>
+  <p class="email-fine" id="form-msg">No noise. Updates when the founding drop goes live.</p>
+  <script>
+    const form = document.getElementById('expedition-form');
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const data = new FormData(form);
+      const res = await fetch(form.action, { method: 'POST', body: data, headers: { 'Accept': 'application/json' } });
+      const msg = document.getElementById('form-msg');
+      if (res.ok) {
+        form.style.display = 'none';
+        msg.textContent = 'You are on the list. We will be in touch.';
+        msg.style.color = 'rgba(226,184,74,0.9)';
+        msg.style.letterSpacing = '0.12em';
+      } else {
+        msg.textContent = 'Something went wrong. Try again.';
+      }
+    });
+  </script>
+</section>
+
+<footer>
+  <span class="footer-logo">Olympus Mons</span>
+  <span class="footer-note">Altitude TBD</span>
+</footer>
+
+</body>
+</html>
